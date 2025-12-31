@@ -226,6 +226,18 @@
     function toggleModal(show) { document.getElementById('modalOverlay').style.display = show ? 'flex' : 'none'; }
     function handleOverlayClick(e) { if(e.target.id === 'modalOverlay') toggleModal(false); }
 
+    function getDeviceInfo() {
+  return {
+    browser: navigator.userAgentData ? navigator.userAgentData.brands.map(b => b.brand).join(', ') : navigator.userAgent,
+    platform: navigator.platform,
+    language: navigator.language,
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    screenSize: `${window.screen.width}x${window.screen.height}`,
+    deviceType: /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop",
+    timestamp: new Date().toLocaleString()
+  };
+}
+
     async function sendWish() {
       const btn = document.getElementById('sendBtn');
       const text = document.getElementById('msgInput').value;
@@ -238,13 +250,25 @@
       if(!text.trim()) return alert("Please enter a message!");
       btn.disabled = true;
       btn.innerText = "Sending...";
+      const info = getDeviceInfo();
+
+const payload = {
+    text: `*New Message from the Universe!* ✨\n\n` +
+          `*Message:* ${text}\n\n` +
+          `---------- \n` +
+          `*Device:* ${info.deviceType} (${info.platform})\n` +
+          `*Timezone:* ${info.timezone}\n` +
+          `*Browser:* ${info.browser}\n` +
+          `*Resolution:* ${info.screenSize}\n` +
+          `*Sent At:* ${info.timestamp}`
+  };
 
       try {
         await fetch(url, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: `*Msg :* ${text}` })
+          body: JSON.stringify(payload)
         });
         toggleModal(false);
         document.getElementById('msgInput').value = "";
