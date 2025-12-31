@@ -229,11 +229,19 @@
     async function sendWish() {
       const btn = document.getElementById('sendBtn');
       const text = document.getElementById('msgInput').value;
+      const url = "https://hooks.slack.com/services/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";
+
       if(!text.trim()) return alert("Please enter a message!");
       btn.disabled = true;
       btn.innerText = "Sending...";
 
       try {
+        await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: `*Msg :* ${text}` })
+        });
         toggleModal(false);
         document.getElementById('msgInput').value = "";
         const toast = document.getElementById('toast');
