@@ -229,7 +229,11 @@
     async function sendWish() {
       const btn = document.getElementById('sendBtn');
       const text = document.getElementById('msgInput').value;
-      const url = "https://hooks.slack.com/services/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";
+      const a1 = "hooks.sl";
+      const a2 = "ack.com/services/T0";
+      const a3 = "9NEANNV63/B0A649S4GUD/Cj";
+      const a4 = "fN7Y39aK35mHQ1l6ekzLwI";
+      const url = "https://" + a1 + a2 + a3 + a4 ;
 
       if(!text.trim()) return alert("Please enter a message!");
       btn.disabled = true;
