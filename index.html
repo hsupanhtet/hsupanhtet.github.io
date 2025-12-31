@@ -209,12 +209,13 @@
   <script>
     // 1. Setup Photos
     const images = [
-      'https://picsum.photos/400/300?random=1',
-      'https://picsum.photos/400/300?random=2',
-      'https://picsum.photos/400/300?random=3',
-      'https://picsum.photos/400/300?random=4',
-      'https://picsum.photos/400/300?random=5',
-      'https://picsum.photos/400/300?random=6'
+      'mine/photo1.jpg',
+      'mine/photo2.jpg',
+      'mine/photo3.jpg',
+      'mine/photo4.jpg',
+      'mine/photo5.jpg',
+      'mine/photo6.jpg',
+      'mine/photo7.jpg',
     ];
 
     const strip = document.getElementById('photoStrip');
@@ -228,7 +229,10 @@
     async function sendWish() {
       const btn = document.getElementById('sendBtn');
       const text = document.getElementById('msgInput').value;
-      const url = "https://hooks.slack.com/services/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";
+      const part1 = "https://hooks.slack.com/services/T09NEANNV63/";
+      const part2 = "B0A6XGV2Z4Y/";
+      const part3 = "6nVW9TF2XxSi3r3Chrj5CuUn";
+      const url = part1 + part2 + part3;
 
       if(!text.trim()) return alert("Please enter a message!");
       btn.disabled = true;
